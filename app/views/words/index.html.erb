@@ -1,0 +1,82 @@
+<h2>WordsController#index</h2>
+
+
+
+ <div style="display:flex;justify-content:space-around">
+    <div>
+        <%= form_with(url: "/words/set_rules", method: "post") do %>
+            <h2>Projects:</h2>
+            <% @projects.each do |project| %>
+            <div>
+                <%= "#{project.name}" %>
+                <%= check_box_tag "projects[#{project.id}]", "is_set" %>
+            </div>
+            <% end %>
+
+            <h2>Roles:</h2>
+            <% @roles.each do |role| %>
+            <div>
+                <%= "#{role.name}" %>
+                <%= check_box_tag "roles[#{role.id}]", "is_set" %>
+            </div>
+            <% end %>
+
+            <h2>Groups:</h2>
+            <% @groups.each do |group| %>
+            <div>
+                <%= "#{group.name}" %>
+                <%= check_box_tag "groups[#{group.id}]", "is_set" %>
+            </div>
+            <% end %>
+            <h2>Trackers:</h2>
+            <% @trackers.each do |tracker| %>
+            <div>
+                <%= "#{tracker.name}" %>
+                <%= check_box_tag "trackers[#{tracker.id}]", "is_set" %>
+            </div>
+            <% end %>
+            
+            <%= submit_tag("Set rules") %>
+            <% end %>
+    </div>
+    <div>
+        <h2>Current rules:</h2>
+        <div>
+            <% @rule_projects.each do |id| %>
+                <div>
+                    <%= "if project id is #{id} OR" %> 
+                </div>
+            <% end %>
+
+            <% @rule_trackers.each do |id| %>
+                <div>
+                    <%= "tracker name is #{Tracker.find(id).name} OR" %> 
+                </div>
+            <% end %>
+
+            <% @rule_roles.each do |id| %>
+                <div>
+                    <%= "if role is #{Role.find(id).name} OR" %> 
+                </div>
+            <% end %>
+
+            <% @rule_groups.each do |id| %>
+                <div>
+                    <%= "if group is #{Group.find(id).name} OR" %> 
+                </div>
+            <% end %>
+        </div>
+    </div>
+
+    <div>
+        <%= form_with(url: "/words/set_message", method: "post") do %>
+                <h2>Message:</h2>
+                <%= text_area_tag 'message', nil, size: '40x10', :placeholder => @last_message%>
+            <%= submit_tag("Set message") %>
+        <% end %>
+    </div>
+
+
+</div>
+
+</div>
